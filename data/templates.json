@@ -1,0 +1,106 @@
+[
+  {
+    "id": "llm-basics",
+    "title": "LLM Basics",
+    "emoji": "🧠",
+    "description": "Tokens, transformers, temperature and hallucinations.",
+    "questions": [
+      { "text": "What does \"LLM\" stand for?", "options": ["Long Learning Machine", "Large Language Model", "Linear Logic Module", "Layered Lookup Memory"], "correct": 1, "seconds": 15 },
+      { "text": "Before a model processes text, it is split into small units called what?", "options": ["Pixels", "Tokens", "Frames", "Shards"], "correct": 1, "seconds": 15 },
+      { "text": "Which architecture underlies most modern LLMs?", "options": ["Transformer", "Decision tree", "Hidden Markov model", "Perceptron"], "correct": 0, "seconds": 15 },
+      { "text": "What does raising the \"temperature\" setting usually do?", "options": ["Makes the model faster", "Makes outputs more random and varied", "Makes the model more factual", "Reduces token cost"], "correct": 1, "seconds": 20 },
+      { "text": "When a model confidently states something false, it is called a...", "options": ["Overflow", "Hallucination", "Jailbreak", "Checkpoint"], "correct": 1, "seconds": 15 }
+    ]
+  },
+  {
+    "id": "prompt-engineering",
+    "title": "Prompt Engineering",
+    "emoji": "✍️",
+    "description": "Few-shot, chain-of-thought, system prompts and clear instructions.",
+    "questions": [
+      { "text": "Including worked examples inside your prompt is called...", "options": ["Zero-shot prompting", "Few-shot prompting", "Fine-tuning", "Prompt injection"], "correct": 1, "seconds": 15 },
+      { "text": "\"Let's think step by step\" is a classic trigger for what?", "options": ["Chain-of-thought reasoning", "Image generation", "Model compression", "Caching"], "correct": 0, "seconds": 15 },
+      { "text": "What is a system prompt mainly used for?", "options": ["Billing the user", "Setting the model's role, rules and behavior", "Storing chat history", "Training the model"], "correct": 1, "seconds": 20 },
+      { "text": "Asking a model to do a task with NO examples is called...", "options": ["Few-shot", "Zero-shot", "One-pass", "Blind-tuning"], "correct": 1, "seconds": 15 },
+      { "text": "Which prompt will usually get the best result?", "options": ["\"Write something about dogs\"", "\"Dogs. Go.\"", "\"Write a 100-word friendly blurb about adopting dogs, as bullet points\"", "\"Make it good\""], "correct": 2, "seconds": 20 }
+    ]
+  },
+  {
+    "id": "agents-mcp",
+    "title": "AI Agents & MCP",
+    "emoji": "🤖",
+    "description": "Tool use, agent loops and the Model Context Protocol.",
+    "questions": [
+      { "text": "What does MCP stand for?", "options": ["Machine Control Panel", "Model Context Protocol", "Multi-Core Processing", "Managed Cloud Pipeline"], "correct": 1, "seconds": 15 },
+      { "text": "What mainly separates an AI agent from a plain chatbot?", "options": ["It uses tools and takes actions toward a goal", "It has a bigger logo", "It never makes mistakes", "It only answers in code"], "correct": 0, "seconds": 20 },
+      { "text": "In tool use, who actually runs the tool?", "options": ["The user's brain", "The model's weights", "The surrounding application, after the model requests it", "The GPU directly"], "correct": 2, "seconds": 20 },
+      { "text": "Which company introduced MCP as an open standard?", "options": ["Anthropic", "Netflix", "Tesla", "Adobe"], "correct": 0, "seconds": 15 },
+      { "text": "A typical agent loop is...", "options": ["Train, deploy, retire", "Think, act with a tool, observe, repeat", "Input, print, exit", "Compile, link, run"], "correct": 1, "seconds": 20 }
+    ]
+  },
+  {
+    "id": "rag-embeddings",
+    "title": "RAG & Embeddings",
+    "emoji": "📚",
+    "description": "Vectors, similarity search and grounding answers in documents.",
+    "questions": [
+      { "text": "What does RAG stand for?", "options": ["Rapid AI Generation", "Retrieval-Augmented Generation", "Recursive Attention Graph", "Random Answer Guessing"], "correct": 1, "seconds": 15 },
+      { "text": "An embedding is...", "options": ["A compressed video", "A list of numbers that captures meaning", "A type of GPU", "A password hash"], "correct": 1, "seconds": 15 },
+      { "text": "Which measure is commonly used to compare embeddings?", "options": ["Cosine similarity", "Word count", "File size", "Latency"], "correct": 0, "seconds": 20 },
+      { "text": "What is the main benefit of RAG?", "options": ["Makes the model smaller", "Grounds answers in up-to-date or private documents", "Removes the need for prompts", "Makes the GPU cooler"], "correct": 1, "seconds": 20 },
+      { "text": "Where are embeddings typically stored for fast search?", "options": ["A vector database", "A spreadsheet's comments", "A printer queue", "A DNS record"], "correct": 0, "seconds": 15 }
+    ]
+  },
+  {
+    "id": "ai-ethics-safety",
+    "title": "AI Ethics & Safety",
+    "emoji": "⚖️",
+    "description": "Bias, deepfakes, RLHF, red teaming and explainability.",
+    "questions": [
+      { "text": "Unfair outcomes caused by skewed training data are called...", "options": ["Latency", "Bias", "Compression", "Sharding"], "correct": 1, "seconds": 15 },
+      { "text": "AI-generated fake video or audio of real people is known as...", "options": ["Deepfakes", "Dataflows", "Hotfixes", "Overlays"], "correct": 0, "seconds": 15 },
+      { "text": "What does RLHF stand for?", "options": ["Rapid Learning for Hardware Failures", "Reinforcement Learning from Human Feedback", "Recursive Logic with Hidden Features", "Real-time Language Handling Framework"], "correct": 1, "seconds": 20 },
+      { "text": "\"Red teaming\" an AI system means...", "options": ["Painting the UI red", "Adversarially testing it to find harmful failures", "Deleting its training data", "Adding more users"], "correct": 1, "seconds": 20 },
+      { "text": "\"Explainability\" is about...", "options": ["Making the model run faster", "Understanding why a model produced a decision", "Translating to other languages", "Reducing file size"], "correct": 1, "seconds": 20 }
+    ]
+  },
+  {
+    "id": "vision-image-gen",
+    "title": "Vision & Image Generation",
+    "emoji": "🎨",
+    "description": "CNNs, diffusion, GANs and object detection.",
+    "questions": [
+      { "text": "What does CNN stand for in computer vision?", "options": ["Central News Network", "Convolutional Neural Network", "Compressed Node Normalizer", "Cached Neuron Net"], "correct": 1, "seconds": 15 },
+      { "text": "Diffusion models create images by...", "options": ["Copying a stock photo", "Gradually removing noise from random noise", "Stitching emojis together", "Tracing edges only"], "correct": 1, "seconds": 20 },
+      { "text": "Drawing boxes around objects in a photo is called...", "options": ["Object detection", "Text-to-speech", "Clustering", "Tokenization"], "correct": 0, "seconds": 15 },
+      { "text": "In a GAN, which two networks compete?", "options": ["Encoder and decoder", "Generator and discriminator", "Reader and writer", "Teacher and student"], "correct": 1, "seconds": 20 },
+      { "text": "A \"negative prompt\" in image generation tells the model...", "options": ["What to avoid in the image", "To use fewer pixels", "To be rude", "To delete the last image"], "correct": 0, "seconds": 20 }
+    ]
+  },
+  {
+    "id": "ml-fundamentals",
+    "title": "Machine Learning Fundamentals",
+    "emoji": "📈",
+    "description": "Supervised vs unsupervised, overfitting and gradient descent.",
+    "questions": [
+      { "text": "Training on labeled examples is called...", "options": ["Unsupervised learning", "Supervised learning", "Random learning", "Passive learning"], "correct": 1, "seconds": 15 },
+      { "text": "A model that memorizes training data but fails on new data is...", "options": ["Underfitting", "Overfitting", "Converged", "Quantized"], "correct": 1, "seconds": 15 },
+      { "text": "Which algorithm nudges weights to reduce loss?", "options": ["Gradient descent", "Quick sort", "Binary search", "Dijkstra's algorithm"], "correct": 0, "seconds": 20 },
+      { "text": "Grouping unlabeled data into clusters is an example of...", "options": ["Supervised learning", "Unsupervised learning", "Prompting", "Fine-tuning"], "correct": 1, "seconds": 20 },
+      { "text": "Why do we keep a separate test set?", "options": ["To measure how well the model generalizes", "To make training faster", "To store the weights", "To label the data"], "correct": 0, "seconds": 20 }
+    ]
+  },
+  {
+    "id": "ai-history",
+    "title": "AI History & Milestones",
+    "emoji": "🏛️",
+    "description": "From Turing to the Transformer.",
+    "questions": [
+      { "text": "Who proposed the famous \"imitation game\" test of machine intelligence?", "options": ["Alan Turing", "Ada Lovelace", "Elon Musk", "Steve Jobs"], "correct": 0, "seconds": 15 },
+      { "text": "Who coined the term \"artificial intelligence\" for the 1956 Dartmouth workshop?", "options": ["Geoffrey Hinton", "John McCarthy", "Yann LeCun", "Bill Gates"], "correct": 1, "seconds": 20 },
+      { "text": "In 1997, IBM's Deep Blue defeated Garry Kasparov at what game?", "options": ["Go", "Poker", "Chess", "Checkers"], "correct": 2, "seconds": 15 },
+      { "text": "In 2016, AlphaGo beat Lee Sedol at what game?", "options": ["Go", "Chess", "Jeopardy", "StarCraft"], "correct": 0, "seconds": 15 },
+      { "text": "The 2017 paper \"Attention Is All You Need\" introduced...", "options": ["The Transformer", "The perceptron", "The GAN", "Backpropagation"], "correct": 0, "seconds": 20 }
+    ]
+  }
+]
