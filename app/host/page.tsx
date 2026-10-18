@@ -36,21 +36,20 @@ export default function HostHome() {
   return (
     <main className="wrap stack">
       <div className="row between">
-        <h1>Host a quiz</h1>
-        <Link href="/" className="muted">Join a game →</Link>
+        <h1>Pick a quiz</h1>
+        <Link href="/">Join a game instead</Link>
       </div>
-      <p className="muted">Pick an AI template and launch in one click, or tweak it first. Each quiz has up to 5 questions.</p>
+      <p className="muted">Every template is about AI and has 5 questions. Launch it as is, or edit it first.</p>
       {error && <div className="error">{error}</div>}
       <div className="grid">
         {templates.map((t) => (
           <div key={t.id} className="card tpl">
             <div className="emoji">{t.emoji}</div>
             <h3>{t.title}</h3>
-            <div className="muted">{t.description}</div>
-            <div className="muted">{t.questions.length} questions</div>
-            <div className="row" style={{ marginTop: "auto" }}>
-              <button className="btn" disabled={busy} onClick={() => launch({ templateId: t.id })}>Use &amp; launch</button>
-              <button className="btn light" style={{ border: "2px solid #d9d4e6" }} disabled={busy} onClick={() => setDraft({ title: t.title, questions: structuredClone(t.questions) })}>
+            <p className="muted">{t.description}</p>
+            <div className="row">
+              <button className="btn" disabled={busy} onClick={() => launch({ templateId: t.id })}>Launch</button>
+              <button className="btn light" disabled={busy} onClick={() => setDraft({ title: t.title, questions: structuredClone(t.questions) })}>
                 Edit first
               </button>
             </div>
@@ -59,9 +58,9 @@ export default function HostHome() {
         <div className="card tpl">
           <div className="emoji">➕</div>
           <h3>Blank quiz</h3>
-          <div className="muted">Write your own questions from scratch.</div>
-          <div className="row" style={{ marginTop: "auto" }}>
-            <button className="btn light" style={{ border: "2px solid #d9d4e6" }} onClick={() => setDraft({ title: "My quiz", questions: [blankQuestion()] })}>Start blank</button>
+          <p className="muted">Write your own questions from scratch.</p>
+          <div className="row">
+            <button className="btn light" onClick={() => setDraft({ title: "My quiz", questions: [blankQuestion()] })}>Start blank</button>
           </div>
         </div>
       </div>
@@ -85,7 +84,7 @@ function Editor({ draft, setDraft, busy, error, onLaunch, onCancel }: {
             <div className="row between">
               <b>Question {i + 1}</b>
               {draft.questions.length > 1 && (
-                <button className="btn ghost" style={{ color: "var(--red)" }} onClick={() => setDraft({ ...draft, questions: draft.questions.filter((_, j) => j !== i) })}>Remove</button>
+                <button className="btn danger" onClick={() => setDraft({ ...draft, questions: draft.questions.filter((_, j) => j !== i) })}>Remove</button>
               )}
             </div>
             <input value={q.text} placeholder="Question text" onChange={(e) => setQ(i, { text: e.target.value })} />
@@ -101,13 +100,13 @@ function Editor({ draft, setDraft, busy, error, onLaunch, onCancel }: {
         ))}
         <div className="row">
           {draft.questions.length < 5 && (
-            <button className="btn ghost" style={{ color: "var(--ink)" }} onClick={() => setDraft({ ...draft, questions: [...draft.questions, blankQuestion()] })}>+ Add question ({draft.questions.length}/5)</button>
+            <button className="btn light" onClick={() => setDraft({ ...draft, questions: [...draft.questions, blankQuestion()] })}>Add question ({draft.questions.length}/5)</button>
           )}
         </div>
         {error && <div className="error">{error}</div>}
         <div className="row">
           <button className="btn big" disabled={busy} onClick={onLaunch}>{busy ? "Launching…" : "Launch quiz"}</button>
-          <button className="btn ghost" style={{ color: "var(--ink)" }} onClick={onCancel}>Back</button>
+          <button className="btn light" onClick={onCancel}>Back to templates</button>
         </div>
       </div>
     </main>

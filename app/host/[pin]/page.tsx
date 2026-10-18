@@ -78,15 +78,24 @@ export default function HostGame() {
 
   if (game.state === "lobby") {
     return (
-      <main className="wrap stack" style={{ textAlign: "center" }}>
-        <p className="muted">{game.title} · join at <b>{joinUrl.replace(/^https?:\/\//, "").replace(/\?.*/, "")}</b> with PIN</p>
-        <div className="pin">{pin}</div>
-        <div className="chips" style={{ justifyContent: "center" }}>
-          {players.length === 0 && <span className="muted">Waiting for players…</span>}
-          {players.map((p) => <span key={p.id} className="chip">{p.name}</span>)}
+      <main className="wrap lobby">
+        <div>
+          <h2>{game.title}</h2>
+          <p className="pin-label">Go to <b>{joinUrl.replace(/^https?:\/\//, "").replace(/\?.*/, "")}</b> and enter this PIN</p>
+          <div className="pin" aria-label={`Game PIN ${pin}`}>
+            {pin.split("").map((d, i) => <span key={i}>{d}</span>)}
+          </div>
         </div>
-        <button className="btn big" disabled={players.length === 0} onClick={next}>Start ({players.length} joined)</button>
-        {error && <div className="error">{error}</div>}
+        <div className="stack">
+          <h3>{players.length === 0 ? "Waiting for players" : `${players.length} ${players.length === 1 ? "player" : "players"} in`}</h3>
+          <div className="chips">
+            {players.map((p) => <span key={p.id} className="chip">{p.name}</span>)}
+          </div>
+        </div>
+        <div>
+          <button className="btn big" disabled={players.length === 0} onClick={next}>Start the quiz</button>
+          {error && <div className="error" style={{ marginTop: 12 }}>{error}</div>}
+        </div>
       </main>
     );
   }
@@ -99,16 +108,29 @@ export default function HostGame() {
     return (
       <main className="wrap stack">
         <div className="row between">
-          <span className="chip">Question {q.idx + 1}/{game.total_questions}</span>
-          <span className="chip">{answered.length > 0 || game.state === "question" ? `${reveal ? shown.reduce((a, b) => a + b, 0) : answered.length} of ${players.length} answered` : ""}</span>
-          {game.state === "question" && <div className="timer">{Math.ceil(left / 1000)}</div>}
+          <span className="q-count">Question {q.idx + 1} of {game.total_questions}</span>
+          <span className="chip">{reveal ? shown.reduce((a, b) => a + b, 0) : answered.length} of {players.length} answered</span>
         </div>
+        {game.state === "question" && (
+          <div className="row" style={{ flexWrap: "nowrap" }}>
+            <div className={`clock ${left < 5000 ? "low" : ""}`} style={{ flex: 1 }}>
+              <i style={{ width: `${Math.min(100, (left / (q.seconds * 1000)) * 100)}%` }} />
+            </div>
+            <span className="secs">{Math.ceil(left / 1000)}</span>
+          </div>
+        )}
         <div className="q-text">{q.text}</div>
         <div className="bars">
           {q.options.map((o, i) => (
-            <div key={i} className={`bar opt-${i} ${reveal && reveal.correct !== i ? "dim" : ""}`} style={{ height: `${Math.max(14, (shown[i] / max) * 100)}%` }}>
-              <span className="n">{shown[i]}</span>
-              <span>{SHAPES[i]} {o}{reveal && reveal.correct === i ? " ✔" : ""}</span>
+            <div key={i} className={`bar-col ${reveal && reveal.correct !== i ? "dim" : ""}`}>
+              <div className="bar-track">
+                <div className={`bar opt-${i}`} style={{ height: `${Math.max(12, (shown[i] / max) * 100)}%` }}>
+                  <span className="n">{shown[i]}</span>
+                </div>
+              </div>
+              <div className={`bar-label opt-${i}`}>
+                <span aria-hidden>{SHAPES[i]}</span> {o}{reveal && reveal.correct === i ? " (correct)" : ""}
+              </div>
             </div>
           ))}
         </div>
@@ -130,15 +152,15 @@ export default function HostGame() {
 
   const [first, second, third] = ranked;
   return (
-    <main className="wrap stack" style={{ textAlign: "center" }}>
-      <h1>🏆 Final results</h1>
+    <main className="wrap stack">
+      <h1>Final results</h1>
       <div className="podium">
-        {second && <div className="p2">🥈<br />{second.name}<br />{second.score}</div>}
-        {first && <div className="p1">🥇<br />{first.name}<br />{first.score}</div>}
-        {third && <div className="p3">🥉<br />{third.name}<br />{third.score}</div>}
+        {second && <div className="p2"><span className="medal">🥈</span>{second.name}<span className="pts">{second.score}</span></div>}
+        {first && <div className="p1"><span className="medal">🥇</span>{first.name}<span className="pts">{first.score}</span></div>}
+        {third && <div className="p3"><span className="medal">🥉</span>{third.name}<span className="pts">{third.score}</span></div>}
       </div>
       <Leaderboard players={ranked} />
-      <a className="btn light big" href="/host" style={{ textDecoration: "none", display: "inline-block" }}>Host another quiz</a>
+      <a className="btn big" href="/host" style={{ textDecoration: "none", display: "inline-block", color: "#fff" }}>Host another quiz</a>
     </main>
   );
 }
@@ -147,7 +169,7 @@ function Leaderboard({ players }: { players: Player[] }) {
   return (
     <ol className="lb">
       {players.map((p, i) => (
-        <li key={p.id}><span>{i + 1}. {p.name}</span><span>{p.score}</span></li>
+        <li key={p.id}><span>{i + 1}. {p.name}</span><b>{p.score}</b></li>
       ))}
     </ol>
   );

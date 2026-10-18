@@ -33,8 +33,9 @@ export default function JoinPage() {
 
   return (
     <main className="center">
-      <div className="stack" style={{ width: "100%", maxWidth: 380, textAlign: "center" }}>
-        <h1 style={{ fontSize: "2.4rem" }}>AI Quiz Live</h1>
+      <div className="stack join">
+        <h1>AI Quiz Live</h1>
+        <p className="muted">Enter the PIN on the big screen and pick a nickname.</p>
         <form className="card stack" onSubmit={join}>
           <input
             inputMode="numeric"
@@ -50,7 +51,7 @@ export default function JoinPage() {
           </button>
           {error && <div className="error">{error}</div>}
         </form>
-        <Link href="/host" className="muted">Host a quiz →</Link>
+        <p>Running the quiz? <Link href="/host">Host a game</Link></p>
       </div>
     </main>
   );

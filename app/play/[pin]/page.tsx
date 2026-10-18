@@ -43,8 +43,8 @@ export default function PlayPage() {
   if (game.state === "lobby") {
     return (
       <Shell>
-        <h2>You're in{me ? `, ${me.name}` : ""}!</h2>
-        <p className="muted">Waiting for the host to start… ({players.length} joined)</p>
+        <h2>You're in{me ? `, ${me.name}` : ""}</h2>
+        <p className="muted">Waiting for the host to start. {players.length} {players.length === 1 ? "player" : "players"} so far.</p>
       </Shell>
     );
   }
@@ -53,13 +53,16 @@ export default function PlayPage() {
     const q = game.public_question;
     return (
       <main className="wrap stack">
-        <div className="row between">
-          <span className="chip">Q{q.idx + 1}/{game.total_questions}</span>
-          <div className="timer" style={{ width: 60, height: 60, fontSize: "1.6rem" }}>{Math.ceil(left / 1000)}</div>
+        <div className="row" style={{ flexWrap: "nowrap" }}>
+          <span className="q-count" style={{ whiteSpace: "nowrap" }}>{q.idx + 1}/{game.total_questions}</span>
+          <div className={`clock ${left < 5000 ? "low" : ""}`} style={{ flex: 1 }}>
+            <i style={{ width: `${Math.min(100, (left / (q.seconds * 1000)) * 100)}%` }} />
+          </div>
+          <span className="secs">{Math.ceil(left / 1000)}</span>
         </div>
         <div className="q-text">{q.text}</div>
         {myPick !== null ? (
-          <Shell inline><h2>Answer locked in ✔</h2><p className="muted">Waiting for the others…</p></Shell>
+          <Shell inline><h2>Answer locked in</h2><p className="muted">Waiting for everyone else.</p></Shell>
         ) : (
           <div className="answers">
             {q.options.map((o, i) => (
@@ -79,22 +82,22 @@ export default function PlayPage() {
     const right = myPick === game.reveal.correct;
     return (
       <Shell>
-        <div className="verdict">{myPick === null ? "⏱ Too slow" : right ? "✅ Correct!" : "❌ Not quite"}</div>
-        <p>Score: <b>{me?.score ?? 0}</b> · Rank <b>#{rank || "-"}</b> of {players.length}</p>
-        <p className="muted">Look at the big screen…</p>
+        <div className={`verdict ${right ? "yes" : "no"}`}>{myPick === null ? "Too slow" : right ? "Correct" : "Not quite"}</div>
+        <p><span className="stat">{me?.score ?? 0}</span> points, rank <span className="stat">{rank || "-"}</span> of {players.length}</p>
+        <p className="muted">Eyes on the big screen.</p>
       </Shell>
     );
   }
 
   return (
     <Shell>
-      <h2>{rank === 1 ? "🏆 You won!" : rank > 0 && rank <= 3 ? "🎉 Podium finish!" : "Game over"}</h2>
-      <p>Final rank <b>#{rank || "-"}</b> of {players.length} · <b>{me?.score ?? 0}</b> pts</p>
+      <h2>{rank === 1 ? "You won" : rank > 0 && rank <= 3 ? "Podium finish" : "Game over"}</h2>
+      <p>Final rank <span className="stat">{rank || "-"}</span> of {players.length}, with <span className="stat">{me?.score ?? 0}</span> points.</p>
     </Shell>
   );
 }
 
 function Shell({ children, inline }: { children: React.ReactNode; inline?: boolean }) {
-  const body = <div className="stack" style={{ textAlign: "center" }}>{children}</div>;
+  const body = <div className="stack">{children}</div>;
   return inline ? body : <main className="center">{body}</main>;
 }
